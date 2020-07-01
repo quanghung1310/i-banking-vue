@@ -44,7 +44,16 @@ export default {
     }),
 
     submit() {
-      this.signIn(this.form)
+      this.signIn(this.form).then(() => {
+        this.$router.replace({
+          name: 'dashboard'
+        })
+      })
+        .catch(() => {
+          this.$router.replace({
+            name: 'home'
+          })
+        })
     }
   }
 }

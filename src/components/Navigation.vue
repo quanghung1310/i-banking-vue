@@ -12,12 +12,43 @@
 				<li class=""><a href="/news">Tin tức</a></li>
 				<li class=""><a href="/rate">Tỉ giá</a></li>
 				<li class=""><a href="/introduce">Giới thiệu</a></li>
-				<li class="last-grid"><a href="/sign-in">Đăng nhập</a></li>
+				<template v-if="authenticated">
+					<li class="last-grid"><a href="#" @click.prevent="signOut">Đăng xuất</a></li>
+				</template>
+				<template v-else>
+					<li class="last-grid"><a href="/sign-in">Đăng nhập</a></li>
+				</template>
 			</ul>
 		</nav>
 		<!-- //nav -->
 	</div>
 </template>
+
+<script>
+import { mapGetters, mapActions } from 'vuex'
+export default {
+	computed: {
+		...mapGetters({
+			authenticated: 'auth/authenticated',
+			user: 'auth/user',
+		})
+	},
+
+	methods: {
+		...mapActions({
+			signOutAction: 'auth/signOut'
+		}),
+
+		signOut() {
+			this.signOutAction().then(() => {
+				this.$router.replace({
+					name: 'home'
+				})
+			})
+		}
+	}
+}
+</script>
 <style scoped>
 	
 </style>
