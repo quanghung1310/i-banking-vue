@@ -7,6 +7,7 @@ import AccountList from '@/views/AccountList.vue'
 import ReceiverList from '@/views/ReceiverList.vue'
 import Transaction from '@/views/Transaction.vue'
 import DebtRemind from '@/views/DebtRemind.vue'
+import History from '@/views/History.vue'
 
 Vue.use(VueRouter)
 
@@ -35,6 +36,11 @@ Vue.use(VueRouter)
         path: "transaction",
         name: "Chuyển Khoản",
         component: Transaction
+      },
+      {
+        path: "history",
+        name: "Lịch sử giao dịch",
+        component: History
       },
       {
         path: "debt-reminder",

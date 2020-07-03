@@ -21,6 +21,10 @@
         <md-icon>library_books</md-icon>
         <p>Chuyển khoản</p>
       </sidebar-link>
+      <sidebar-link to="/history">
+        <md-icon>history</md-icon>
+        <p>Lịch sử giao dịch</p>
+      </sidebar-link>
       <sidebar-link to="/debt-reminder">
         <md-icon>bubble_chart</md-icon>
         <p>Quản lý nhắc nợ</p>
