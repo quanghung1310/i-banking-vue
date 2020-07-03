@@ -1,19 +1,25 @@
 <template>
   <form @submit.prevent="submit">
-    <div>
+    <div class="form-group">
       <label for="username">
         Username
       </label>
 
-      <input type="text" name="username" id="username" v-model="form.username">
+      <input class= "form-control" type="text" name="username" id="username" v-model="form.username">
     </div>
 
-    <div>
+    <div class="form-group">
       <label for="password">
         Password
       </label>
 
-      <input type="password" name="password" id="password" v-model="form.password">
+      <input class="form-control" type="password" name="password" id="password" v-model="form.password">
+    </div>
+
+    <div class="form-group">
+      <div class="g-recaptcha"
+        data-sitekey="6LfD06sZAAAAAC7TAhk4w6zQRK8XGfZA9DJe8Ub6">
+      </div>
     </div>
 
     <div>
@@ -47,13 +53,15 @@ export default {
       this.signIn(this.form).then(() => {
         this.$router.replace({
           name: 'dashboard'
+        }).catch({
+          name: 'dashboard'
         })
       })
         .catch(() => {
           this.$router.replace({
             name: 'home'
           })
-        })
+      });
     }
   }
 }

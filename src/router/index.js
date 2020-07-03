@@ -1,50 +1,31 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import SignIn from '../views/SignIn.vue'
-import Dashboard from '../views/Dashboard.vue'
-import store from '@/store'
+import DashboardLayout from '@/views/Layout/DashboardLayout.vue'
+// import store from '@/store'
+import Dashboard from '@/views/Dashboard.vue'
 
 Vue.use(VueRouter)
 
   const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: Home
-  },
-  {
-    path: '/sign-in',
-    name: 'sign-in',
-    component: SignIn,
-    beforeEnter: (to, from, next) => {
-      if (store.getters['auth/authenticated']) {
-        return next({
-          name: 'home'
-        })
+    path: "/",
+    component: DashboardLayout,
+    redirect: "/dashboard",
+    children: [
+      {
+        path: "dashboard",
+        name: "Dashboard",
+        component: Dashboard
       }
-      next()
-    }
-  },
-  {
-    path: '/dashboard',
-    name: 'dashboard',
-    component: Dashboard,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters['auth/authenticated']) {
-        return next({
-          name: 'sign-in'
-        })
-      }
-      next()
-    }
+    ]
   }
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  linkExactActiveClass: "nav-item active"
 })
 
 export default router
