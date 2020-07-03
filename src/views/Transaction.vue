@@ -48,7 +48,7 @@
           </div>
           <div class="md-layout-item md-size-100">
             <md-field maxlength="5">
-              <label>Ghi chú</label>
+              <label>Nội dung</label>
               <md-textarea v-model="aboutme"></md-textarea>
             </md-field>
           </div>
