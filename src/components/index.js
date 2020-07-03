@@ -8,6 +8,10 @@ import NavTabsTable from "./Tables/NavTabsTable.vue";
 import OrderedTable from "./Tables/OrderedTable.vue";
 import SimpleTable from "./Tables/SimpleTable.vue";
 import HistoryTable from "./Tables/HistoryTable.vue";
+import ReceiverTable from "./Tables/ReceiverTable.vue";
+
+//Forms
+import ReceiverForm from "./Forms/ReceiverForm.vue";
 
 export {
   ChartCard,
@@ -16,5 +20,7 @@ export {
   NavTabsTable,
   OrderedTable,
   SimpleTable,
-  HistoryTable
+  HistoryTable,
+  ReceiverTable,
+  ReceiverForm,
 };
