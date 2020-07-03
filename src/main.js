@@ -6,12 +6,14 @@ import axios from 'axios'
 import MaterialDashboard from "./material-dashboard";
 import GlobalComponents from "./globalComponents";
 import GlobalDirectives from "./globalDirectives";
+import Chartist from "chartist";
 
 require('@/store/subscriber')
 
 axios.defaults.baseURL = 'http://localhost:26112'
 
 Vue.config.productionTip = false
+Vue.prototype.$Chartist = Chartist;
 
 Vue.use(MaterialDashboard);
 Vue.use(GlobalComponents);
@@ -20,6 +22,9 @@ Vue.use(GlobalDirectives);
 new Vue({
   router,
   store,
+  data: {
+    Chartist: Chartist
+  },
   render: h => h(App)
 }).$mount('#app')
 

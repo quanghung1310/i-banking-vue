@@ -12,7 +12,7 @@
               v-model="selectedBank"
               :md-options="banks"
             >
-              <label>Search...</label>
+              <label>Tìm kiếm...</label>
             </md-autocomplete>
           </div>
           <md-list>
@@ -62,8 +62,8 @@
                       <md-icon>person</md-icon>
                     </md-button>
                     <ul class="dropdown-menu dropdown-menu-right">
-                      <li><a href="#">Profile</a></li>
-                      <li><a href="#">Logout</a></li>
+                      <li><a href="#">Thông tin tài khoản</a></li>
+                      <li><a href="#">Đăng xuất</a></li>
                     </ul>
                   </drop-down>
                 </div>

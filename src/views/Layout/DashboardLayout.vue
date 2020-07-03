@@ -9,29 +9,21 @@
         <md-icon>dashboard</md-icon>
         <p>Dashboard</p>
       </sidebar-link>
-      <sidebar-link to="/user">
+      <sidebar-link to="/account">
         <md-icon>person</md-icon>
-        <p>Account</p>
+        <p>Danh sách tài khoản</p>
       </sidebar-link>
-      <sidebar-link to="/table">
+      <sidebar-link to="/receiver">
         <md-icon>content_paste</md-icon>
-        <p>Account Saving</p>
+        <p>Danh sách người nhận</p>
       </sidebar-link>
-      <sidebar-link to="/typography">
+      <sidebar-link to="/transaction">
         <md-icon>library_books</md-icon>
-        <p>Typography</p>
+        <p>Chuyển khoản</p>
       </sidebar-link>
-      <sidebar-link to="/icons">
+      <sidebar-link to="/debt-reminder">
         <md-icon>bubble_chart</md-icon>
-        <p>Icons</p>
-      </sidebar-link>
-      <sidebar-link to="/maps">
-        <md-icon>location_on</md-icon>
-        <p>Maps</p>
-      </sidebar-link>
-      <sidebar-link to="/notifications">
-        <md-icon>notifications</md-icon>
-        <p>Notifications</p>
+        <p>Quản lý nhắc nợ</p>
       </sidebar-link>
     </side-bar>
 
