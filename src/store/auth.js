@@ -59,7 +59,6 @@ export default ({
     signOut ({ commit }) {
       commit('SET_TOKEN', null)
       commit('SET_USER', null)
-      return
     }
   }
 })

@@ -8,8 +8,8 @@
             <md-table-head>Số dư</md-table-head>
         </md-table-row>
         <md-table-row slot="md-table-row">
-            <md-table-cell md-label="Họ tên">{{ accountPayment.name }}</md-table-cell>
-            <md-table-cell md-label="Số tài khoản">{{ accountPayment.numberCard }}</md-table-cell>
+            <md-table-cell md-label="Họ tên">{{ accountPayment.cardName }}</md-table-cell>
+            <md-table-cell md-label="Số tài khoản">{{ accountPayment.cardNumber }}</md-table-cell>
             <md-table-cell md-label="Ngày hết hạn">{{ accountPayment.closeDate }}</md-table-cell>
             <md-table-cell md-label="Số dư">${{ accountPayment.balance }}</md-table-cell>
         </md-table-row>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
     name: "payment-table",
@@ -28,10 +28,18 @@ export default {
             default: ""
         }
     },
+    methods: {
+		...mapActions({
+            getAccountPayment: 'account/getAccountPayment',
+        }),
+    },
     computed: {
         ...mapGetters({
             accountPayment: 'account/accountPayment'
         })
     },
+    created() {
+        this.getAccountPayment();
+    }
 };
 </script>
