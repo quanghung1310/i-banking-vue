@@ -10,7 +10,7 @@ import Chartist from "chartist";
 
 require('@/store/subscriber')
 
-axios.defaults.baseURL = 'http://127.0.0.1:1111'
+axios.defaults.baseURL = 'http://127.0.0.1:1111/lh-bank'
 
 Vue.config.productionTip = false
 Vue.prototype.$Chartist = Chartist;
@@ -19,16 +19,14 @@ Vue.use(MaterialDashboard);
 Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
 
-new Vue({
-  router,
-  store,
-  data: {
-    Chartist: Chartist
-  },
-  render: h => h(App)
-}).$mount('#app')
-
-// store.dispatch('auth/attempt', JSON.parse(localStorage.getItem('token'))).then(() => {
-  
-// })
+store.dispatch('auth/attempt', JSON.parse(localStorage.getItem('token'))).then(() => {
+  new Vue({
+    router,
+    store,
+    data: {
+      Chartist: Chartist
+    },
+    render: h => h(App)
+  }).$mount('#app')
+})
 

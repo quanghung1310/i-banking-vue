@@ -16,11 +16,11 @@
       <input class="form-control" type="password" name="password" id="password" v-model="form.password">
     </div>
 
-    <div class="form-group">
+    <!-- <div class="form-group">
       <div class="g-recaptcha"
         data-sitekey="6LfD06sZAAAAAC7TAhk4w6zQRK8XGfZA9DJe8Ub6">
       </div>
-    </div>
+    </div> -->
 
     <div>
       <button type="submit" class="btn btn-primary">Submit</button>
@@ -52,14 +52,12 @@ export default {
     submit() {
       this.signIn(this.form).then(() => {
         this.$router.replace({
-          name: 'dashboard'
-        }).catch({
-          name: 'dashboard'
+          name: 'Dashboard'
         })
       })
         .catch(() => {
           this.$router.replace({
-            name: 'home'
+            name: 'sign-in'
           })
       });
     }

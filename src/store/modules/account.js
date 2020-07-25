@@ -65,11 +65,11 @@ export default ({
 
     actions: {
         async getAccountPayment({ commit }) {
-            let response = await axios.get('payment');
+            let response = await axios.get('/payment');
             commit('setAccountPayment', response.data)
         },
         async getAccountSaving({ commit }) {
-            let response = await axios.get('saving');
+            let response = await axios.get('/saving');
             commit('setAccountSaving', response.data)
         },
     }

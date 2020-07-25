@@ -29,14 +29,10 @@ export default ({
 
   actions: {
     async signIn({ dispatch }, auth) {
-      let response = await axios.post('oauth/token', {
-          username: auth.username,
-          password: auth.password,
-          grant_type: 'password',
-          client_id: '5',
-          client_secret: 'NYvbmSO5hw1MpaSghj84THgrzHHplTWwyYKW8u0V',
-          provider: 'admins'
-        });
+      let response = await axios.post('authenticate', {
+        userName: auth.username,
+        password: auth.password
+      });
 
       dispatch('attempt', response.data)
     },
@@ -50,11 +46,10 @@ export default ({
         return
       }
       
-
       try {
-        let response = await axios.get('api/admin/v1/me/profile')
+        let response = await axios.get('get-profile')
 
-        commit('SET_USER', response.data)
+        commit('SET_USER', response.data.data)
       } catch (e) {
         commit('SET_TOKEN', null)
         commit('SET_USER', null)
@@ -62,10 +57,9 @@ export default ({
     },
 
     signOut ({ commit }) {
-      return axios.post('api/admin/v1/me/logout').then(() => {
-        commit('SET_TOKEN', null)
-        commit('SET_USER', null)
-      })
+      commit('SET_TOKEN', null)
+      commit('SET_USER', null)
+      return
     }
   }
 })

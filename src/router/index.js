@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import DashboardLayout from '@/views/Layout/DashboardLayout.vue'
-// import store from '@/store'
+import store from '@/store'
 import Dashboard from '@/views/Dashboard.vue'
 import AccountList from '@/views/AccountList.vue'
 import ReceiverList from '@/views/ReceiverList.vue'
 import Transaction from '@/views/Transaction.vue'
 import DebtRemind from '@/views/DebtRemind.vue'
 import History from '@/views/History.vue'
+import SignIn from '@/views/SignIn.vue'
 
 Vue.use(VueRouter)
 
@@ -48,6 +49,11 @@ Vue.use(VueRouter)
         component: DebtRemind
       }
     ]
+  },
+  {
+    path: "/sign-in",
+    component: SignIn,
+    name: "sign-in",
   }
 ]
 
@@ -57,5 +63,17 @@ const router = new VueRouter({
   routes,
   linkExactActiveClass: "nav-item active"
 })
+
+const openRouter = ['sign-in'];
+
+router.beforeEach((to, from, next) => {
+  if (openRouter.includes(to.name)) {
+    next();
+  } else if (store.getters['auth/authenticated']) {
+    next();
+  } else {
+    next('/sign-in');
+  }
+});
 
 export default router

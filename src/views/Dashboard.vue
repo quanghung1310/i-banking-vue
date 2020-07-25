@@ -76,7 +76,6 @@ import {
   StatsCard,
   ChartCard
 } from "@/components";
-// import axios from "axios";
 
 export default {
   components: {
@@ -107,13 +106,6 @@ export default {
         }
       }
     };
-  },
-  async getAccountPayment() {
-    try {
-      this.account_payment = 100;
-    } catch (e) {
-      console.error(e);
-    }
   }
 };
 </script>

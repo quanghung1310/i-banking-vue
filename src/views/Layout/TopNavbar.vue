@@ -63,7 +63,7 @@
                     </md-button>
                     <ul class="dropdown-menu dropdown-menu-right">
                       <li><a href="#">Thông tin tài khoản</a></li>
-                      <li><a href="#">Đăng xuất</a></li>
+                      <li><a href="#" @click.prevent="signOut">Đăng xuất</a></li>
                     </ul>
                   </drop-down>
                 </div>
@@ -77,6 +77,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   data() {
     return {
@@ -87,7 +89,21 @@ export default {
         "DongA"
       ]
     };
-  }
+  },
+
+	methods: {
+		...mapActions({
+			signOutAction: 'auth/signOut'
+		}),
+
+		signOut() {
+			this.signOutAction().then(() => {
+				this.$router.replace({
+					name: 'sign-in'
+				})
+			})
+		}
+	}
 };
 </script>
 
