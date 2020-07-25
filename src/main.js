@@ -10,7 +10,7 @@ import Chartist from "chartist";
 
 require('@/store/subscriber')
 
-axios.defaults.baseURL = 'http://localhost:26112'
+axios.defaults.baseURL = 'http://127.0.0.1:1111'
 
 Vue.config.productionTip = false
 Vue.prototype.$Chartist = Chartist;

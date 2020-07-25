@@ -9,7 +9,7 @@
             <h4 class="title">Tài khoản thanh toán</h4>
           </md-card-header>
           <md-card-content>
-            <simple-table table-header-color="green"></simple-table>
+            <payment-table table-header-color="green"></payment-table>
           </md-card-content>
         </md-card>
       </div>
@@ -22,7 +22,7 @@
             <h4 class="title">Tài khoản tích kiệm</h4>
           </md-card-header>
           <md-card-content>
-            <ordered-table></ordered-table>
+            <saving-table table-header-color="green"></saving-table>
           </md-card-content>
         </md-card>
       </div>
@@ -31,12 +31,12 @@
 </template>
 
 <script>
-import { SimpleTable, OrderedTable } from "@/components";
+import { PaymentTable, SavingTable } from "@/components";
 
 export default {
   components: {
-    OrderedTable,
-    SimpleTable
+    PaymentTable,
+    SavingTable
   }
 };
 </script>

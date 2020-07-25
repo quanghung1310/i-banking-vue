@@ -5,10 +5,10 @@ import StatsCard from "./Cards/StatsCard.vue";
 
 // Tables
 import NavTabsTable from "./Tables/NavTabsTable.vue";
-import OrderedTable from "./Tables/OrderedTable.vue";
-import SimpleTable from "./Tables/SimpleTable.vue";
 import HistoryTable from "./Tables/HistoryTable.vue";
 import ReceiverTable from "./Tables/ReceiverTable.vue";
+import PaymentTable from "./Tables/PaymentTable.vue";
+import SavingTable from "./Tables/SavingTable.vue";
 
 //Forms
 import ReceiverForm from "./Forms/ReceiverForm.vue";
@@ -17,10 +17,12 @@ export {
   ChartCard,
   NavTabsCard,
   StatsCard,
+
   NavTabsTable,
-  OrderedTable,
-  SimpleTable,
   HistoryTable,
   ReceiverTable,
-  ReceiverForm,
+  PaymentTable,
+  SavingTable,
+  
+  ReceiverForm
 };
