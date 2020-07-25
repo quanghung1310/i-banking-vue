@@ -14,11 +14,11 @@ export default ({
 
     getters: {
         accountPayment (state) {
-        return state.account_payment
+            return state.account_payment
         },
 
         accountSaving (state) {
-        return state.account_saving
+            return state.account_saving
         }
     },
 

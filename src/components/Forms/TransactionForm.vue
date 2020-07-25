@@ -17,7 +17,7 @@
                     </md-autocomplete>
                 </div>
                 <template v-if="selectedType == 'Liên Ngân Hàng'">
-                    <div class="md-layout-item md-small-size-100 md-size-50 md-autocomplete">
+                <div class="md-layout-item md-small-size-100 md-size-50 md-autocomplete">
                     <md-autocomplete
                     class="search"
                     v-model="selectedBank"

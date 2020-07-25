@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<md-table v-model="users" :table-header-color="tableHeaderColor">
+		<md-table :table-header-color="tableHeaderColor">
 		<md-table-row slot="md-table-row">
 			<md-table-head>Họ tên</md-table-head>
 			<md-table-head>Số tài khoản</md-table-head>

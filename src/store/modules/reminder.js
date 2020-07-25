@@ -30,24 +30,51 @@ export default ({
                 bank: "ACB"
             },
         ],
+        partner_bank: [
+            "ACB",
+            "SCB",
+            "DongA"
+        ],
     },
 
     getters: {
         reminders (state) {
             return state.reminders
+        },
+        partnerBanks (state) {
+            return state.partner_bank
         }
     },
 
     mutations: {
         setReminders (state, reminders) {
             state.reminders = reminders
+        },
+        newReminder (state, reminder) {
+            state.reminders.unshift(reminder)
         }
     },
 
     actions: {
         async getReminders({ commit }) {
             let response = await axios.get('reminders');
-            commit('setAccountPayment', response.data)
+            commit('setReminders', response.data)
+        },
+        async addReminder({ commit }, form ) {
+            console.log(form);
+            let type;
+            if (form.selectedTypes == 'Chuyển Tiền') {
+                type = 1;
+            } else {
+                type = 2
+            }
+            let response = await axios.post('create-reminder', {
+                nameReminisce: form.remindName,
+                cardNumber: form.cardNumber,
+                type: type,
+                merchantId: 2
+            });
+            commit('newReminder', response.data)
         },
     }
 })
