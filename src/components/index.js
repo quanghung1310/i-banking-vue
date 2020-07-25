@@ -6,7 +6,7 @@ import StatsCard from "./Cards/StatsCard.vue";
 // Tables
 import NavTabsTable from "./Tables/NavTabsTable.vue";
 import HistoryTable from "./Tables/HistoryTable.vue";
-import ReceiverTable from "./Tables/ReceiverTable.vue";
+import ReminderTable from "./Tables/ReminderTable.vue";
 import PaymentTable from "./Tables/PaymentTable.vue";
 import SavingTable from "./Tables/SavingTable.vue";
 
@@ -20,7 +20,7 @@ export {
 
   NavTabsTable,
   HistoryTable,
-  ReceiverTable,
+  ReminderTable,
   PaymentTable,
   SavingTable,
   

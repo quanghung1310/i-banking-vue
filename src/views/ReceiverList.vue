@@ -14,7 +14,7 @@
             <h4 class="title">Danh sách</h4>
           </md-card-header>
           <md-card-content>
-            <receiver-table table-header-color="blue"></receiver-table>
+            <reminder-table table-header-color="blue"></reminder-table>
           </md-card-content>
         </md-card>
       </div>
@@ -23,12 +23,12 @@
 </template>
 
 <script>
-import { ReceiverTable, ReceiverForm } from "@/components";
+import { ReminderTable, ReceiverForm } from "@/components";
 
 export default {
   components: {
     ReceiverForm,
-    ReceiverTable,
+    ReminderTable,
   }
 };
 </script>
