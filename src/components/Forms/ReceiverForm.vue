@@ -13,7 +13,7 @@
               <md-input v-model="form.remindName" type="text"></md-input>
             </md-field>
           </div>
-          <div class="md-layout-item md-small-size-100 md-size-50 md-autocomplete">
+          <!-- <div class="md-layout-item md-small-size-100 md-size-50 md-autocomplete">
             <md-autocomplete
               class="search"
               v-model="form.selectedBank"
@@ -21,7 +21,7 @@
               >
               <label>Ngân hàng</label>
             </md-autocomplete>
-          </div>
+          </div> -->
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>Số tài khoản</label>
@@ -47,7 +47,7 @@
   </form>
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: "receiver-form",
@@ -82,11 +82,6 @@ export default {
       this.form.cardNumber = '';
       this.form.selectedTypes = '';
     }
-  },
-  computed: {
-    ...mapGetters({
-      banks: 'reminder/partnerBanks'
-    })
   },
 };
 </script>

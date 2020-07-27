@@ -6,7 +6,7 @@
     :style="sidebarStyle"
   >
     <div class="logo">
-      <a href="#" class="simple-text logo-mini">
+      <a href="/" class="simple-text logo-mini">
         <div class="logo-img">
           <img :src="imgLogo" alt="" />
         </div>
@@ -46,7 +46,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: "Vue MD"
+      default: "LH Bank"
     },
     sidebarBackgroundImage: {
       type: String,

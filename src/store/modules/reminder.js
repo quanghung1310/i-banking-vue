@@ -5,30 +5,7 @@ export default ({
 
     state: {
         reminders: [
-            {
-                id: 1,
-                name: 'Nguyễn Văn A',
-                numberCard: 123456,
-                bank: "ACB"
-            },
-            {
-                id: 2,
-                name: 'Nguyễn Văn B',
-                numberCard: 123456,
-                bank: "ACB"
-            },
-            {
-                id: 3,
-                name: 'Nguyễn Văn C',
-                numberCard: 123456,
-                bank: "ACB"
-            },
-            {
-                id: 4,
-                name: 'Nguyễn Văn D',
-                numberCard: 123456,
-                bank: "ACB"
-            },
+
         ],
         partner_bank: [
             "ACB",
@@ -57,8 +34,8 @@ export default ({
 
     actions: {
         async getReminders({ commit }) {
-            let response = await axios.get('reminders');
-            commit('setReminders', response.data)
+            let response = await axios.get('get-reminders/2');
+            commit('setReminders', response.data.data.account)
         },
         async addReminder({ commit }, form ) {
             console.log(form);
@@ -74,7 +51,7 @@ export default ({
                 type: type,
                 merchantId: 2
             });
-            commit('newReminder', response.data)
+            commit('newReminder', response.data.data.account[0])
         },
     }
 })

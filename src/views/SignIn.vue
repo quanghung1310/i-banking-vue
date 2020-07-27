@@ -8,19 +8,25 @@
 
       <div class="form">
         <md-field>
-          <label>UserName</label>
+          <label>Tên tài khoản</label>
           <md-input v-model="form.username" autofocus></md-input>
         </md-field>
 
         <md-field md-has-password>
-          <label>Password</label>
+          <label>Mật khẩu</label>
           <md-input v-model="form.password" type="password"></md-input>
         </md-field>
       </div>
 
+      <!-- <div class="form">
+        <div class="g-recaptcha"
+          data-sitekey="6LfD06sZAAAAAC7TAhk4w6zQRK8XGfZA9DJe8Ub6">
+        </div>
+      </div> -->
+
       <div class="actions md-layout md-alignment-center-space-between">
-        <a href="/resetpassword">Reset password</a>
-        <md-button class="md-raised md-primary" @click="submit">Log in</md-button>
+        <a href="/resetpassword">Quên mật khẩu</a>
+        <md-button class="md-raised md-primary" @click="submit">Đăng nhập</md-button>
       </div>
 
       <div class="loading-overlay" v-if="loading">
@@ -65,9 +71,7 @@ export default {
         })
       })
         .catch(() => {
-          this.$router.replace({
-            name: 'sign-in'
-          })
+          console.log('fail')
       });
     }
   }

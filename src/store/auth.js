@@ -48,6 +48,11 @@ export default ({
       
       try {
         let response = await axios.get('get-profile')
+        
+        if (response.data.data.role != 'CUSTOMER') {
+          commit('SET_TOKEN', null)
+          return
+        }
 
         commit('SET_USER', response.data.data)
       } catch (e) {
