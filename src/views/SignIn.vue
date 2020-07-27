@@ -57,7 +57,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      signIn: 'auth/signIn'
+      signIn: 'auth/signIn',
+      notification: 'addNotification',
     }),
 
     submit() {
@@ -71,7 +72,10 @@ export default {
         })
       })
         .catch(() => {
-          console.log('fail')
+          this.notification({
+            type: 'danger',
+            message: 'Tài khoản/mật khấu không chính xác.'
+          });
       });
     }
   }
