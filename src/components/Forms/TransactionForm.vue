@@ -27,6 +27,15 @@
                     </md-autocomplete>
                 </div>
                 </template>
+                <div class="md-layout-item md-small-size-100 md-size-50 md-autocomplete">
+                    <md-autocomplete
+                    class="search"
+                    v-model="selectedReminder"
+                    :md-options="listReminders"
+                    >
+                    <label>Tài khoản gợi nhớ</label>
+                    </md-autocomplete>
+                </div>
                 <div class="md-layout-item md-small-size-100 md-size-33">
                     <md-field>
                     <label>Tên tài khoản</label>
@@ -73,13 +82,15 @@ export default {
     data() {
         return {
             selectedType: null,
-            selectedBank: null
+            selectedBank: null,
+            selectedReminder: null,
         };
     },
     computed: {
         ...mapGetters({
             types: 'transaction/typeTrans',
-            banks: 'transaction/partnerBank'
+            banks: 'transaction/partnerBank',
+            listReminders: 'reminder/reminders',
         })
     },
 };

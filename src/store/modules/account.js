@@ -23,11 +23,11 @@ export default ({
     },
 
     mutations: {
-        setAccountPayment (state, account_payment) {
+        SET_ACCOUNT_PAYMENT (state, account_payment) {
             state.account_payment = account_payment
         },
 
-        setAccountSaving (state, account_saving) {
+        SET_ACCOUNT_SAVING (state, account_saving) {
             state.account_saving = account_saving
         },
     },
@@ -35,11 +35,11 @@ export default ({
     actions: {
         async getAccountPayment({ commit }) {
             let response = await axios.get('get-accounts/payment');
-            commit('setAccountPayment', response.data.data.accounts[0])
+            commit('SET_ACCOUNT_PAYMENT', response.data.data.accounts[0])
         },
         async getAccountSaving({ commit }) {
             let response = await axios.get('get-accounts/saving');
-            commit('setAccountSaving', response.data.data.accounts)
+            commit('SET_ACCOUNT_SAVING', response.data.data.accounts)
         },
     }
 })

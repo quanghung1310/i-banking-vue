@@ -1,17 +1,17 @@
-// import axios from 'axios'
+import axios from 'axios'
 
 export default ({
     namespaced: true,
 
     state: {
+        transactions: [],
         type_trans: [
             "Nội bộ",
             "Liên Ngân Hàng"
         ],
         partner_bank: [
-            "ACB",
-            "SCB",
-            "DongA"
+            "DH Bank",
+            "HHL Bank"
         ],
     },
 
@@ -25,10 +25,24 @@ export default ({
     },
 
     mutations: {
-        
+        SET_TRANSACTIONS (state, transactions) {
+            state.transactions = transactions
+        },
+        NEW_TRANSACTION (state, transaction) {
+            state.transactions.unshift(transaction)
+        }
     },
 
     actions: {
-        
+        async createTransaction({ commit }, form) {
+            let response = await axios.post('transaction', {
+                form
+            });
+
+            commit('NEW_TRANSACTION', response.data.data);
+        },
+        async sendOTP(transId) {
+            await axios.get('send-otp/payment/' + transId);
+        }
     }
 })

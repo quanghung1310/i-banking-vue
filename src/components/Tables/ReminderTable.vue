@@ -4,11 +4,14 @@
 		<md-table-row slot="md-table-row">
 			<md-table-head>Tên gợi nhớ</md-table-head>
 			<md-table-head>Số tài khoản</md-table-head>
+			<md-table-head>Loại</md-table-head>
 			<md-table-head></md-table-head>
 		</md-table-row>
 		<md-table-row slot="md-table-row" v-for="reminder in reminders" :key="reminder.reminderId">
-			<md-table-cell md-label="Họ tên">{{ reminder.cardName }}</md-table-cell>
+			<md-table-cell md-label="Họ tên">{{ reminder.reminderName }}</md-table-cell>
 			<md-table-cell md-label="Số tài khoản">{{ reminder.cardNumber }}</md-table-cell>
+			<md-table-cell v-if="reminder.typeReminder == 'send'">Chuyển Tiền</md-table-cell>
+			<md-table-cell v-else>Con nợ</md-table-cell>
 			<md-table-cell>
 				<md-button class="md-just-icon md-simple md-primary">
 					<md-icon>edit</md-icon>
@@ -35,16 +38,16 @@ export default {
 	},
 	computed: {
         ...mapGetters({
-            reminders: 'reminder/reminders'
+            reminders: 'reminder/allReminders'
         })
 	},
 	methods: {
 		...mapActions({
-			getReminders: 'reminder/getReminders'
+			getAllReminders: 'reminder/getAllReminders'
 		})
 	},
 	created() {
-		this.getReminders();
+		this.getAllReminders();
 	}
 };
 </script>
