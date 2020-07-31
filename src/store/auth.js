@@ -28,7 +28,7 @@ export default ({
   },
 
   actions: {
-    async signIn({ dispatch }, auth) {
+    async login({ dispatch }, auth) {
       let response = await axios.post('authenticate', {
         userName: auth.username,
         password: auth.password

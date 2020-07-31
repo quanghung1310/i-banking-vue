@@ -12,6 +12,7 @@ import OtpInput from "@bachdgvn/vue-otp-input";
 require('@/store/subscriber')
 
 axios.defaults.baseURL = 'http://127.0.0.1:1111/lh-bank'
+axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')?.bearerToken;
 
 Vue.config.productionTip = false
 Vue.prototype.$Chartist = Chartist;

@@ -99,7 +99,7 @@ export default {
 		signOut() {
 			this.signOutAction().then(() => {
 				this.$router.replace({
-					name: 'sign-in'
+					name: 'login'
 				})
 			})
 		}

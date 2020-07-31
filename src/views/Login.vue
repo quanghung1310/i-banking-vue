@@ -39,10 +39,10 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
-  name: 'sign-in',
+  name: 'login',
   components: {
     //
   },
@@ -50,14 +50,14 @@ export default {
     return {
       loading: false,
       form: {
-        username: '',
-        password: '',
+        username: 'customer1',
+        password: '123456',
       }
     }
   },
   methods: {
     ...mapActions({
-      signIn: 'auth/signIn',
+      login: 'auth/login',
       notification: 'addNotification',
     }),
 
@@ -66,8 +66,8 @@ export default {
       setTimeout(() => {
         this.loading = false;
       }, 3000);
-      this.signIn(this.form).then(() => {
-        this.$router.replace({
+      this.login(this.form).then(() => {
+        this.$router.push({
           name: 'Dashboard'
         })
       })

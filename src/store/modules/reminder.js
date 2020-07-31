@@ -70,7 +70,6 @@ export default ({
         },
         async getAccountReminderByCardNumber({ commit }, cardNumber) {
             let response = await axios.get('get-reminders/1/' + cardNumber);
-            console.log(response.data.data.account[0])
             commit('SET_ACCOUNT_OF_REMINDER', response.data.data.account[0])
         }
     }
