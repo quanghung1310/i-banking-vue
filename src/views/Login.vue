@@ -50,8 +50,8 @@ export default {
     return {
       loading: false,
       form: {
-        username: 'customer1',
-        password: '123456',
+        username: '',
+        password: '',
       }
     }
   },

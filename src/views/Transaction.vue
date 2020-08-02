@@ -13,18 +13,18 @@
                                 <div class="md-layout-item md-small-size-100 md-size-50 md-autocomplete">
                                     <md-autocomplete
                                     class="search"
-                                    v-model="selectedType"
+                                    v-model="form.selectedType"
                                     :md-options="types"
                                     required
                                     >
                                     <label>Loại chuyển khoản</label>
                                     </md-autocomplete>
                                 </div>
-                                <template v-if="selectedType == 'Liên Ngân Hàng'">
+                                <template v-if="form.selectedType == 'Liên Ngân Hàng'">
                                 <div class="md-layout-item md-small-size-100 md-size-50 md-autocomplete">
                                     <md-autocomplete
                                     class="search"
-                                    v-model="selectedBank"
+                                    v-model="form.selectedBank"
                                     :md-options="banks"
                                     required
                                     >
@@ -46,7 +46,7 @@
                                     <md-field>
                                     <label>Tên tài khoản</label>
                                     <template v-if="getAccountOfReminder != []">
-                                        <md-input v-model="getAccountOfReminder.cardName" required disabled></md-input>
+                                        <md-input v-model="form.cardName" required disabled></md-input>
                                     </template>
                                     <template v-else>
                                         <md-input required></md-input>
@@ -56,19 +56,19 @@
                                 <div class="md-layout-item md-small-size-100 md-size-33">
                                     <md-field>
                                     <label>Số tài khoản</label>
-                                    <md-input type="text" v-model="getAccountOfReminder.cardNumber" required></md-input>
+                                    <md-input type="text" v-model="form.cardNumber" required></md-input>
                                     </md-field>
                                 </div>
                                 <div class="md-layout-item md-small-size-100 md-size-33">
                                     <md-field>
                                     <label>Số tiền</label>
-                                    <md-input type="number" required></md-input>
+                                    <md-input type="number" v-model="form.amount" required></md-input>
                                     </md-field>
                                 </div>
                                 <div class="md-layout-item md-small-size-100 md-size-33 md-autocomplete">
                                     <md-autocomplete
                                     class="search"
-                                    v-model="selectedFee"
+                                    v-model="form.selectedFee"
                                     :md-options="typeFee"
                                     required
                                     >
@@ -78,13 +78,13 @@
                                 <div class="md-layout-item md-size-100">
                                     <md-field maxlength="5">
                                     <label>Nội dung</label>
-                                    <md-textarea required></md-textarea>
+                                    <md-textarea v-model="form.content" required></md-textarea>
                                     </md-field>
                                 </div>
                                 </div>
                             </md-card-content>
                         </md-card>
-                    <md-button class="md-raised md-primary" @click="setDone('first', 'second')">Tiếp tục</md-button>
+                    <md-button class="md-raised md-primary" @click="sendForm()">Tiếp tục</md-button>
                     </form>
                 </md-step>
 
@@ -97,15 +97,16 @@
                         :should-auto-focus="true"
                         :is-input-num="true"
                         :shouldAutoFocus="true"
+                        @on-complete="handleOnComplete"
                         />
                     </div>
-                    <md-button class="md-raised md-primary" @click="setDone('second', 'third')">Tiếp tục</md-button>
+                    <md-button class="md-raised md-primary" @click="confirm()">Tiếp tục</md-button>
                     <!-- <md-button class="md-raised md-primary" @click="setError()">Set error!</md-button> -->
                 </md-step>
 
                 <md-step id="third" md-label="Xác nhận" :md-done.sync="third">
                     <p>Giao dịch thành công</p>
-                    <md-button class="md-raised md-primary" @click="setDone('third')">Xác nhận</md-button>
+                    <md-button class="md-raised md-primary" @click="end()">Xác nhận</md-button>
                 </md-step>
                 </md-steppers>
             </div>
@@ -125,26 +126,41 @@ export default {
         third: false,
         secondStepError: null,
         selectedType: null,
-        selectedBank: null,
         selectedReminder: null,
         typeFee: [
             'Người gửi',
             'Người nhận',
         ],
+        formOTP: {
+            transId: null,
+            otp: null,
+        },
         selectedFee: null,
+        form: {
+            cardName: null,
+            cardNumber: null,
+            amount: null,
+            selectedFee: null,
+            content: null,
+            selectedBank: null,
+        }
     }),
     computed: {
         ...mapGetters({
             types: 'transaction/typeTrans',
             banks: 'transaction/partnerBank',
             getRemindersTypeSend: 'reminder/getRemindersTypeSend',
-            getAccountOfReminder: 'reminder/getAccountOfReminder'
+            getAccountOfReminder: 'reminder/getAccountOfReminder',
         })
     },
     methods: {
         ...mapActions({
             getAllReminders: 'reminder/getAllReminders',
             getAccountReminderByCardNumber: 'reminder/getAccountReminderByCardNumber',
+            createTransaction: 'transaction/createTransaction',
+            sendOTP: 'transaction/sendOTP',
+            notification: 'addNotification',
+            confirmOTP: 'transaction/confirmOTP',
 		}),
         setDone (id, index) {
             this[id] = true
@@ -161,9 +177,45 @@ export default {
         getAccount() {
             var res = this.selectedReminder.split("-");
             this.getAccountReminderByCardNumber(res[1]);
+            this.form.cardName = this.getAccountOfReminder.cardName;
+            this.form.cardNumber = this.getAccountOfReminder.cardNumber;
         },
-        sendTransaction() {
-
+        sendForm() {
+            this.createTransaction(this.form).then((res) => {
+                this.sendOTP(res).then((res) => {
+                    console.log(res.data.data.transId)
+                    this.formOTP.transId = res.data.data.transId
+                    this.setDone('first', 'second');
+                }).catch(() => {
+                    this.notification({
+                        type: 'danger',
+                        message: 'Chuyển khoản không hợp lệ'
+                    });
+                });
+            }).catch(() => {
+                this.notification({
+                    type: 'danger',
+                    message: 'Chuyển khoản không hợp lệ'
+                });
+            })
+        },
+        confirm() {
+            console.log(this.formOTP)
+            this.confirmOTP(this.formOTP).then(() => {
+                this.setDone('second', 'third');
+            }).catch(() => {
+                this.notification({
+                    type: 'danger',
+                    message: 'OTP không hợp lệ'
+                });
+            });
+        },
+        end() {
+            this.$router.go()
+        },
+        handleOnComplete(value) {
+            console.log('OTP completed: ', value);
+            this.formOTP.otp = parseInt(value);
         }
     },
 	created() {

@@ -21,28 +21,61 @@ export default ({
         },
         partnerBank (state) {
             return state.partner_bank
-        }
+        },
     },
 
     mutations: {
         SET_TRANSACTIONS (state, transactions) {
             state.transactions = transactions
         },
-        NEW_TRANSACTION (state, transaction) {
-            state.transactions.unshift(transaction)
+        NEW_TRANSACTION () {
         }
     },
 
     actions: {
-        async createTransaction({ commit }, form) {
+        async createTransaction({ commit }, form ) {
+            let typeFee;
+            if (form.selectedFee == 'Người nhận') {
+                typeFee = 1;
+            } else {
+                typeFee = 2;
+            }
+
+            let merchantId;
+            switch (form.selectedBank) {
+                case 'HHL Bank':
+                    merchantId = 1;
+                    break;
+                case 'DH Bank':
+                    merchantId = 3;
+                    break;
+                default: merchantId = 2;
+            }
+
             let response = await axios.post('transaction', {
-                form
+                receiverCard: form.cardNumber,
+                typeFee: typeFee,
+                content: form.content,
+                amount: form.amount,
+                merchantId: merchantId
             });
 
-            commit('NEW_TRANSACTION', response.data.data);
+            commit('NEW_TRANSACTION')
+            return response.data.data.transId
         },
-        async sendOTP(transId) {
-            await axios.get('send-otp/payment/' + transId);
+        async sendOTP({ commit }, transId) {
+            let response = await axios.get('send-otp/payment/' + transId);
+            commit('NEW_TRANSACTION');
+            return response;
+        },
+        async confirmOTP({ commit }, form) {
+            console.log(form)
+            await axios.post('validate-otp', {
+                action: 'payment',
+                otp: form.otp,
+                transId: form.transId
+            });
+            commit('NEW_TRANSACTION');
         }
     }
 })

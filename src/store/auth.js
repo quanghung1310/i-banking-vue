@@ -9,10 +9,6 @@ export default ({
   },
 
   getters: {
-    authenticated (state) {
-      return state.token && state.user && true
-    },
-
     user (state) {
       return state.user
     }

@@ -41,7 +41,11 @@ export default ({
             state.reminders = reminders
         },
         NEW_REMINDER (state, reminder) {
-            state.reminders.unshift(reminder)
+            if (!state.reminders) {
+                state.reminders = reminder
+            } else {
+                state.reminders.push(reminder)
+            }
         },
         SET_ACCOUNT_OF_REMINDER (state, account_of_reminder) {
             state.account_of_reminder = account_of_reminder
