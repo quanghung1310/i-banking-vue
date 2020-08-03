@@ -4,7 +4,9 @@ export default ({
     namespaced: true,
 
     state: {
-        transactions: [],
+        send_transactions: [],
+        receiver_transactions: [],
+        debt_transactions: [],
         type_trans: [
             "Nội bộ",
             "Liên Ngân Hàng"
@@ -22,11 +24,26 @@ export default ({
         partnerBank (state) {
             return state.partner_bank
         },
+        getSendTransactions(state) {
+            return state.send_transactions
+        },
+        getReceiverTransactions(state) {
+            return state.receiver_transactions
+        },
+        getDebtTransactions(state) {
+            return state.debt_transactions
+        },
     },
 
     mutations: {
-        SET_TRANSACTIONS (state, transactions) {
-            state.transactions = transactions
+        SET_SEND_TRANSACTIONS (state, transactions) {
+            state.send_transactions = transactions
+        },
+        SET_RECEIVER_TRANSACTIONS (state, transactions) {
+            state.receiver_transactions = transactions
+        },
+        SET_DEBT_TRANSACTIONS (state, transactions) {
+            state.debt_transactions = transactions
         },
         NEW_TRANSACTION () {
         }
@@ -76,6 +93,16 @@ export default ({
                 transId: form.transId
             });
             commit('NEW_TRANSACTION');
+        },
+        async getTransactions({ commit }, type) {
+            let response = await axios.get('/get-transactions/' + type);
+            if (type == 'send') {
+                commit('SET_SEND_TRANSACTIONS', response.data.data.transactions);
+            } else if (type == 'receiver') {
+                commit('SET_RECEIVER_TRANSACTIONS', response.data.data.transactions);
+            } else {
+                commit('SET_DEBT_TRANSACTIONS', response.data.data.transactions);
+            }
         }
     }
 })

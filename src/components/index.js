@@ -5,7 +5,9 @@ import StatsCard from "./Cards/StatsCard.vue";
 
 // Tables
 import NavTabsTable from "./Tables/NavTabsTable.vue";
-import HistoryTable from "./Tables/HistoryTable.vue";
+import HistorySendTable from "./Tables/HistorySendTable.vue";
+import HistoryReceiverTable from "./Tables/HistoryReceiverTable.vue";
+import HistoryDebtTable from "./Tables/HistoryDebtTable.vue";
 import ReminderTable from "./Tables/ReminderTable.vue";
 import PaymentTable from "./Tables/PaymentTable.vue";
 import SavingTable from "./Tables/SavingTable.vue";
@@ -20,7 +22,9 @@ export {
   StatsCard,
 
   NavTabsTable,
-  HistoryTable,
+  HistorySendTable,
+  HistoryReceiverTable,
+  HistoryDebtTable,
   ReminderTable,
   PaymentTable,
   SavingTable,
