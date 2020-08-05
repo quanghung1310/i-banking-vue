@@ -6,7 +6,7 @@
       </div>
       <div class="md-toolbar-section-end">
         <div class="md-collapse">
-          <div class="md-autocomplete">
+          <!-- <div class="md-autocomplete">
             <md-autocomplete
               class="search"
               v-model="selectedBank"
@@ -14,7 +14,7 @@
             >
               <label>Tìm kiếm...</label>
             </md-autocomplete>
-          </div>
+          </div> -->  
           <md-list>
             <md-list-item href="/">
               <i class="material-icons">dashboard</i>
@@ -62,7 +62,7 @@
                       <md-icon>person</md-icon>
                     </md-button>
                     <ul class="dropdown-menu dropdown-menu-right">
-                      <li><a href="#">Thông tin tài khoản</a></li>
+                      <li><a href="/change-password">Đổi mật khẩu</a></li>
                       <li><a href="#" @click.prevent="signOut">Đăng xuất</a></li>
                     </ul>
                   </drop-down>
@@ -80,17 +80,6 @@
 import { mapActions } from 'vuex'
 
 export default {
-  data() {
-    return {
-      selectedBank: null,
-      banks: [
-        "ACB",
-        "VCB",
-        "DongA"
-      ]
-    };
-  },
-
 	methods: {
 		...mapActions({
 			signOutAction: 'auth/signOut'

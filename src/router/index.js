@@ -8,6 +8,7 @@ import Transaction from '@/views/Transaction.vue'
 import DebtRemind from '@/views/DebtRemind.vue'
 import History from '@/views/History.vue'
 import Login from '@/views/Login.vue'
+import ChangePassword from '@/views/ChangePassword.vue'
 
 Vue.use(VueRouter)
 
@@ -46,7 +47,12 @@ Vue.use(VueRouter)
         path: "debt-reminder",
         name: "Quản Lý Nhắc Nợ",
         component: DebtRemind
-      }
+      },
+      {
+        path: "change-password",
+        name: "Đổi mật khẩu",
+        component: ChangePassword
+      },
     ],
     meta: {
       requiresAuth: true

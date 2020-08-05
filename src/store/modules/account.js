@@ -30,6 +30,8 @@ export default ({
         SET_ACCOUNT_SAVING (state, account_saving) {
             state.account_saving = account_saving
         },
+
+        NEW_PASSWORD () {}
     },
 
     actions: {
@@ -41,5 +43,13 @@ export default ({
             let response = await axios.get('get-accounts/saving');
             commit('SET_ACCOUNT_SAVING', response.data.data.accounts)
         },
+        async changePassword({ commit }, password) {
+            let response = await axios.post('update-password', {
+                password: password
+            });
+
+            commit('NEW_PASSWORD');
+            return response;
+        }
     }
 })
