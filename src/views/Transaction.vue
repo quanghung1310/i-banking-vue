@@ -56,7 +56,7 @@
                                 <div class="md-layout-item md-small-size-100 md-size-33">
                                     <md-field>
                                     <label>Số tài khoản</label>
-                                    <md-input type="text" v-model="form.cardNumber" required></md-input>
+                                    <md-input type="text" v-model="form.cardNumber" required @change="getCardName"></md-input>
                                     </md-field>
                                 </div>
                                 <div class="md-layout-item md-small-size-100 md-size-33">
@@ -151,6 +151,7 @@ export default {
             banks: 'transaction/partnerBank',
             getRemindersTypeSend: 'reminder/getRemindersTypeSend',
             getAccountOfReminder: 'reminder/getAccountOfReminder',
+            accountInfo: 'account/accountInfo',
         })
     },
     methods: {
@@ -161,6 +162,7 @@ export default {
             sendOTP: 'transaction/sendOTP',
             notification: 'addNotification',
             confirmOTP: 'transaction/confirmOTP',
+            getAccountInfo: 'account/getAccountInfo',
 		}),
         setDone (id, index) {
             this[id] = true
@@ -176,9 +178,10 @@ export default {
         },
         getAccount() {
             var res = this.selectedReminder.split("-");
-            this.getAccountReminderByCardNumber(res[1]);
-            this.form.cardName = this.getAccountOfReminder.cardName;
-            this.form.cardNumber = this.getAccountOfReminder.cardNumber;
+            this.getAccountReminderByCardNumber(res[1]).then(() => {
+                this.form.cardName = this.getAccountOfReminder.cardName;
+                this.form.cardNumber = this.getAccountOfReminder.cardNumber;
+            });
         },
         sendForm() {
             this.createTransaction(this.form).then((res) => {
@@ -200,7 +203,6 @@ export default {
             })
         },
         confirm() {
-            console.log(this.formOTP)
             this.confirmOTP(this.formOTP).then(() => {
                 this.setDone('second', 'third');
             }).catch(() => {
@@ -216,10 +218,18 @@ export default {
         handleOnComplete(value) {
             console.log('OTP completed: ', value);
             this.formOTP.otp = parseInt(value);
+        },
+        getCardName() {
+            console.log(this.form.cardNumber);
+            this.getAccountInfo(this.form.cardNumber).then(() => {
+                this.form.cardName = this.accountInfo.cardName;
+            }).catch(() => {
+                return
+            });
         }
     },
 	created() {
-		this.getAllReminders();
+        this.getAllReminders();
 	}
 };
 </script>

@@ -10,6 +10,9 @@ export default ({
         account_saving: [
             
         ],
+        account_info: [
+
+        ],
     },
 
     getters: {
@@ -19,6 +22,10 @@ export default ({
 
         accountSaving (state) {
             return state.account_saving
+        },
+
+        accountInfo (state) {
+            return state.account_info
         }
     },
 
@@ -31,7 +38,11 @@ export default ({
             state.account_saving = account_saving
         },
 
-        NEW_PASSWORD () {}
+        NEW_PASSWORD () {},
+
+        SET_ACCOUNT_INFO (state, account) {
+            state.account_info = account
+        }
     },
 
     actions: {
@@ -49,6 +60,11 @@ export default ({
             });
 
             commit('NEW_PASSWORD');
+            return response;
+        },
+        async getAccountInfo({ commit }, cardNumber) {
+            let response = await axios.get('get-account-info/' + cardNumber + '/2');
+            commit('SET_ACCOUNT_INFO', response.data.data.account[0])
             return response;
         }
     }

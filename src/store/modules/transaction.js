@@ -96,12 +96,27 @@ export default ({
         },
         async getTransactions({ commit }, type) {
             let response = await axios.get('/get-transactions/' + type);
+            let transactions = [];
+
+            if (response.data.data.transactions) {
+                response.data.data.transactions.forEach(transaction => {
+                    if (transaction.status == 'COMPLETED') {
+                        if (transactions) {
+                            transactions.push(transaction)
+                        } else {
+                            transactions = transaction
+                        }
+                        
+                    }
+                });
+            }
+
             if (type == 'send') {
-                commit('SET_SEND_TRANSACTIONS', response.data.data.transactions);
+                commit('SET_SEND_TRANSACTIONS', transactions);
             } else if (type == 'receiver') {
-                commit('SET_RECEIVER_TRANSACTIONS', response.data.data.transactions);
+                commit('SET_RECEIVER_TRANSACTIONS', transactions);
             } else {
-                commit('SET_DEBT_TRANSACTIONS', response.data.data.transactions);
+                commit('SET_DEBT_TRANSACTIONS', transactions);
             }
         }
     }

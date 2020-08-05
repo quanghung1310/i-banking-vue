@@ -14,7 +14,6 @@ import SavingTable from "./Tables/SavingTable.vue";
 
 //Forms
 import ReceiverForm from "./Forms/ReceiverForm.vue";
-import TransactionForm from "./Forms/TransactionForm.vue";
 import ChangePasswordForm from "./Forms/ChangePasswordForm.vue";
 
 export {
@@ -31,6 +30,5 @@ export {
   SavingTable,
   
   ReceiverForm,
-  TransactionForm,
   ChangePasswordForm,
 };

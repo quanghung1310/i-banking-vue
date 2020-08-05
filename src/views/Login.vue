@@ -26,7 +26,7 @@
 
       <div class="actions md-layout md-alignment-center-space-between">
         <a href="/resetpassword">Quên mật khẩu</a>
-        <md-button class="md-raised md-primary" @click="submit">Đăng nhập</md-button>
+        <md-button class="md-raised md-primary" @click="submit" v-on:keyup.enter="submit">Đăng nhập</md-button>
       </div>
 
       <div class="loading-overlay" v-if="loading">
