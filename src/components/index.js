@@ -15,6 +15,7 @@ import SavingTable from "./Tables/SavingTable.vue";
 //Forms
 import ReceiverForm from "./Forms/ReceiverForm.vue";
 import ChangePasswordForm from "./Forms/ChangePasswordForm.vue";
+import RemindDebtForm from "./Forms/RemindDebtForm.vue";
 
 export {
   ChartCard,
@@ -31,4 +32,5 @@ export {
   
   ReceiverForm,
   ChangePasswordForm,
+  RemindDebtForm,
 };

@@ -33,7 +33,18 @@ export default ({
         },
         getAccountOfReminder (state) {
             return state.account_of_reminder
-        }
+        },
+        getRemindersTypeDebt (state) {
+            let arr = [];
+            if (state.reminders) {
+                state.reminders.forEach(reminder => {
+                    if (reminder.typeReminder == 'debt') {
+                        arr.push(reminder.reminderName + '-' + reminder.cardNumber)
+                    }
+                });
+            }
+            return arr;
+        },
     },
 
     mutations: {

@@ -76,11 +76,12 @@ export default {
       addReminder: 'reminder/addReminder',
     }),
     submit() {
-      this.addReminder(this.form);
-      this.form.remindName = '';
-      this.form.selectedBank = '';
-      this.form.cardNumber = '';
-      this.form.selectedTypes = '';
+      this.addReminder(this.form).then(() => {
+        this.form.remindName = '';
+        this.form.selectedBank = '';
+        this.form.cardNumber = '';
+        this.form.selectedTypes = '';
+      });
     }
   },
 };

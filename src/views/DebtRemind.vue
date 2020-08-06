@@ -1,20 +1,22 @@
 <template>
   <div class="content">
     <div class="md-layout">
-      <div class="md-layout-item md-medium-size-100 md-size-66">
-        <edit-profile-form data-background-color="green"> </edit-profile-form>
+      <div class="md-layout-item md-medium-size-100 md-size-100">
+        <remind-debt-form></remind-debt-form>
       </div>
-      <div class="md-layout-item md-medium-size-100 md-size-33">
-        <user-card> </user-card>
+      <div class="md-layout-item md-medium-size-100 md-size-100">
+
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { RemindDebtForm } from "@/components";
 
 export default {
   components: {
+    RemindDebtForm,
   }
 };
 </script>

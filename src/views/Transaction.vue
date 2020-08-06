@@ -220,12 +220,15 @@ export default {
             this.formOTP.otp = parseInt(value);
         },
         getCardName() {
-            console.log(this.form.cardNumber);
-            this.getAccountInfo(this.form.cardNumber).then(() => {
-                this.form.cardName = this.accountInfo.cardName;
-            }).catch(() => {
-                return
-            });
+            if (this.form.cardNumber !== '') {
+                this.getAccountInfo(this.form.cardNumber).then(() => {
+                    this.form.cardName = this.accountInfo.cardName;
+                }).catch(() => {
+                    this.form.cardName = '';
+                });
+            } else {
+                this.form.cardName = '';
+            }
         }
     },
 	created() {
