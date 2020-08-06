@@ -11,6 +11,8 @@ import HistoryDebtTable from "./Tables/HistoryDebtTable.vue";
 import ReminderTable from "./Tables/ReminderTable.vue";
 import PaymentTable from "./Tables/PaymentTable.vue";
 import SavingTable from "./Tables/SavingTable.vue";
+import DebtTable from "./Tables/DebtTable.vue";
+import RemindDebtTable from "./Tables/RemindDebtTable.vue";
 
 //Forms
 import ReceiverForm from "./Forms/ReceiverForm.vue";
@@ -29,6 +31,8 @@ export {
   ReminderTable,
   PaymentTable,
   SavingTable,
+  DebtTable,
+  RemindDebtTable,
   
   ReceiverForm,
   ChangePasswordForm,

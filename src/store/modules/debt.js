@@ -35,5 +35,9 @@ export default ({
             });
             commit('NEW_DEBT', response.data.data.debts[0])
         },
+        async getDebts({ commit }) {
+            let response = await axios.get('get-debts/1/1');
+            commit('SET_DEBTS', response.data.data.debts)
+        }
     }
 })
