@@ -60,7 +60,8 @@ export default ({
         },
         SET_ACCOUNT_OF_REMINDER (state, account_of_reminder) {
             state.account_of_reminder = account_of_reminder
-        }
+        },
+        UPDATE_REMINDERS () {}
     },
 
     actions: {
@@ -86,6 +87,26 @@ export default ({
         async getAccountReminderByCardNumber({ commit }, cardNumber) {
             let response = await axios.get('get-reminders/1/' + cardNumber);
             commit('SET_ACCOUNT_OF_REMINDER', response.data.data.account[0])
+        },
+        async updateReminder({ commit }, form) {
+            await axios.post('update-reminder', {
+                action: 'UPDATE',
+                reminderId: form.reminderId,
+                cardNumber: form.cardNumber,
+                nameReminisce: form.reminderName
+            })
+
+            commit('UPDATE_REMINDERS');
+        },
+        async removeReminder({ commit }, form) {
+            await axios.post('update-reminder', {
+                action: 'DELETE',
+                reminderId: form.reminderId,
+                cardNumber: form.cardNumber,
+                nameReminisce: form.reminderName
+            })
+
+            commit('UPDATE_REMINDERS');
         }
     }
 })
