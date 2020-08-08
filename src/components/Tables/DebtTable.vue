@@ -3,7 +3,7 @@
 		<md-table :table-header-color="tableHeaderColor">
 		<md-table-row slot="md-table-row">
 			<md-table-head>Tên tài khoản</md-table-head>
-			<md-table-head>Số lượng</md-table-head>
+			<md-table-head>Số tiền</md-table-head>
 			<md-table-head>Nội dung</md-table-head>
 			<md-table-head></md-table-head>
 		</md-table-row>
@@ -12,8 +12,13 @@
 			<md-table-cell>{{ debt.amount }}</md-table-cell>
 			<md-table-cell>{{ debt.content }}</md-table-cell>
 			<md-table-cell>
+				<md-button class="md-just-icon md-simple md-info">
+					<md-icon>notifications</md-icon>
+					<md-tooltip md-direction="top">Nhắc nợ</md-tooltip>
+				</md-button>
 				<md-button class="md-just-icon md-simple md-danger">
 					<md-icon>close</md-icon>
+					<md-tooltip md-direction="top">Xóa</md-tooltip>
 				</md-button>
 			</md-table-cell>
 		</md-table-row>

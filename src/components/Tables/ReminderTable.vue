@@ -15,9 +15,11 @@
 			<md-table-cell>
 				<md-button class="md-just-icon md-simple md-primary" @click="edit(reminder); showDialog = true">
 					<md-icon>edit</md-icon>
+					<md-tooltip md-direction="top">Sửa</md-tooltip>
 				</md-button>
 				<md-button class="md-just-icon md-simple md-danger" @click="remove(reminder)">
 					<md-icon>close</md-icon>
+					<md-tooltip md-direction="top">Xóa</md-tooltip>
 				</md-button>
 			</md-table-cell>
 		</md-table-row>
