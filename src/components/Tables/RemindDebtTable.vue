@@ -7,7 +7,7 @@
 			<md-table-head>Nội dung</md-table-head>
 			<md-table-head></md-table-head>
 		</md-table-row>
-		<md-table-row slot="md-table-row" v-for="debt in allDebts" :key="debt.reminderId">
+		<md-table-row slot="md-table-row" v-for="debt in allRemindedDebts" :key="debt.reminderId">
 			<md-table-cell>{{ debt.partnerName }}</md-table-cell>
 			<md-table-cell>{{ debt.amount }}</md-table-cell>
 			<md-table-cell>{{ debt.content }}</md-table-cell>
@@ -35,18 +35,16 @@ export default {
 	},
 	computed: {
         ...mapGetters({
-            allDebts: 'debt/allDebts'
+            allRemindedDebts: 'debt/allRemindedDebts'
         })
 	},
 	methods: {
 		...mapActions({
-			getAllReminders: 'reminder/getAllReminders',
-			getDebts: 'debt/getDebts',
+			getRemindedDebts: 'debt/getRemindedDebts',
 		}),
 	},
 	created() {
-		this.getAllReminders();
-		this.getDebts();
+		this.getRemindedDebts();
 	}
 };
 </script>

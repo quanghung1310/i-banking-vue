@@ -5,12 +5,16 @@ export default ({
 
     state: {
         debts: [],
+        reminded_debts: [],
     },
 
     getters: {
         allDebts (state) {
             return state.debts
         },
+        allRemindedDebts (state) {
+            return state.reminded_debts
+        }
     },
 
     mutations: {
@@ -24,6 +28,10 @@ export default ({
                 state.debts.push(debt)
             }
         },
+        UPDATE_DEBT (){},
+        SET_REMINDED_DEBTS (state, debts) {
+            state.reminded_debts = debts
+        }
     },
 
     actions: {
@@ -38,6 +46,17 @@ export default ({
         async getDebts({ commit }) {
             let response = await axios.get('get-debts/1/1');
             commit('SET_DEBTS', response.data.data.debts)
+        },
+        async removeDebt({ commit }, form) {
+            await axios.post('delete-debt', {
+                debtId: form.id,
+                content: form.content
+            })
+            commit('UPDATE_DEBT');
+        },
+        async getRemindedDebts({ commit }) {
+            let response = await axios.get('get-debts/1/2');
+            commit('SET_REMINDED_DEBTS', response.data.data.debts)
         }
     }
 })
