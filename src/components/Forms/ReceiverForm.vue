@@ -21,23 +21,20 @@
               >
               <label>Ngân hàng</label>
             </md-autocomplete>
-          </div> -->
+          </div>-->
           <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field>
+            <md-field :class="validCardNumber">
               <label>Số tài khoản</label>
-              <md-input v-model="form.cardNumber" type="text"></md-input>
+              <md-input v-model="form.cardNumber" type="number"></md-input>
+              <span class="md-error">Số tài khoản có 16 số</span>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-autocomplete
-              class="search"
-              v-model="form.selectedTypes"
-              :md-options="types"
-              >
+            <md-autocomplete class="search" v-model="form.selectedTypes" :md-options="types">
               <label>Loại</label>
             </md-autocomplete>
           </div>
-          <md-progress-bar md-mode="indeterminate"/>
+          <md-progress-bar md-mode="indeterminate" />
           <div class="md-layout-item md-size-100 text-right">
             <md-button type="submit" class="md-raised md-success">Thêm</md-button>
           </div>
@@ -47,42 +44,44 @@
   </form>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 
 export default {
   name: "receiver-form",
   props: {
     dataBackgroundColor: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
+  },
+  computed: {
+    validCardNumber() {
+     return this.form.cardNumber == "" ? "" : this.form.cardNumber.length == 16 ? "" : "md-invalid"
+    },
   },
   data() {
     return {
       form: {
-        remindName: '',
-        selectedBank: '',
-        cardNumber: '',
-        selectedTypes: '',
+        remindName: "",
+        selectedBank: "",
+        cardNumber: "",
+        selectedTypes: "",
       },
-      types: [
-        'Ghi Nợ',
-        'Chuyển Tiền'
-      ]
+      types: ["Ghi Nợ", "Chuyển Tiền"],
     };
   },
   methods: {
     ...mapActions({
-      addReminder: 'reminder/addReminder',
+      addReminder: "reminder/addReminder",
     }),
     submit() {
       this.addReminder(this.form).then(() => {
-        this.form.remindName = '';
-        this.form.selectedBank = '';
-        this.form.cardNumber = '';
-        this.form.selectedTypes = '';
+        this.form.remindName = "";
+        this.form.selectedBank = "";
+        this.form.cardNumber = "";
+        this.form.selectedTypes = "";
       });
-    }
+    },
   },
 };
 </script>
