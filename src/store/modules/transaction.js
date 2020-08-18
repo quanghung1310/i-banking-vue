@@ -53,9 +53,9 @@ export default ({
         async createTransaction({ commit }, form ) {
             let typeFee;
             if (form.selectedFee == 'Người nhận') {
-                typeFee = 1;
-            } else {
                 typeFee = 2;
+            } else {
+                typeFee = 1;
             }
 
             let merchantId;

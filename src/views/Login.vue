@@ -18,11 +18,9 @@
         </md-field>
       </div>
 
-      <!-- <div class="form">
-        <div class="g-recaptcha"
-          data-sitekey="6LfD06sZAAAAAC7TAhk4w6zQRK8XGfZA9DJe8Ub6">
-        </div>
-      </div> -->
+      <div class="form">
+        <VueRecaptcha sitekey="6Lejd78ZAAAAAExK1GyM1nDyeOQ0hhXyZ0gnaHB8" :loadRecaptchaScript="true" @verify="validate"/>
+      </div>
 
       <div class="actions md-layout md-alignment-center-space-between">
         <a href="/resetpassword">Quên mật khẩu</a>
@@ -40,11 +38,12 @@
 
 <script>
 import { mapActions } from 'vuex'
+import VueRecaptcha from 'vue-recaptcha'
 
 export default {
   name: 'login',
   components: {
-    //
+    VueRecaptcha,
   },
   data () {
     return {
@@ -52,7 +51,8 @@ export default {
       form: {
         username: '',
         password: '',
-      }
+      },
+      isVerify: false,
     }
   },
   methods: {
@@ -62,6 +62,13 @@ export default {
     }),
 
     submit() {
+      if (this.isVerify == false) {
+        this.notification({
+          type: 'danger',
+          message: 'Captcha không chính xác.'
+        });
+        return
+      }
       this.loading = true;
       setTimeout(() => {
         this.loading = false;
@@ -77,6 +84,10 @@ export default {
             message: 'Tài khoản/mật khấu không chính xác.'
           });
       });
+    },
+
+    validate() {
+      this.isVerify = true
     }
   }
 }
