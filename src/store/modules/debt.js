@@ -57,6 +57,23 @@ export default ({
         async getRemindedDebts({ commit }) {
             let response = await axios.get('get-debts/1/2');
             commit('SET_REMINDED_DEBTS', response.data.data.debts)
+        },
+        async payDebt({ commit }, form) {
+            console.log(form);
+            var type
+            if (form.typeFee == 'Người gửi') {
+                type = 1
+            } else {
+                type = 2
+            }
+            console.log(type)
+            await axios.post('pay-debt', {
+                debtId: form.debtId,
+                typeFee: type,
+                content: form.content,
+            })
+
+            commit('UPDATE_DEBT');
         }
     }
 })
