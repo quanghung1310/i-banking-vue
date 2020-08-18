@@ -8,9 +8,10 @@
       <md-card-content>
         <div class="md-layout">
           <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field>
+            <md-field :class="validRemindName">
               <label>Tên gợi nhớ</label>
               <md-input v-model="form.remindName" type="text"></md-input>
+              <span class="md-error">Tên tối thiểu 2 ký tự</span>
             </md-field>
           </div>
           <!-- <div class="md-layout-item md-small-size-100 md-size-50 md-autocomplete">
@@ -57,6 +58,9 @@ export default {
   computed: {
     validCardNumber() {
      return this.form.cardNumber == "" ? "" : this.form.cardNumber.length == 16 ? "" : "md-invalid"
+    },
+    validRemindName() {
+      return this.form.remindName == "" ? "" : this.form.remindName.length >=2 ? "" : "md-invalid"
     },
   },
   data() {
