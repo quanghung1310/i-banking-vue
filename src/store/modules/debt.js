@@ -67,13 +67,14 @@ export default ({
                 type = 2
             }
             console.log(type)
-            await axios.post('pay-debt', {
+            let response = await axios.post('pay-debt', {
                 debtId: form.debtId,
                 typeFee: type,
                 content: form.content,
             })
 
             commit('UPDATE_DEBT');
+            return response.data.data.transId;
         }
     }
 })

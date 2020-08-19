@@ -118,6 +118,20 @@ export default ({
             } else {
                 commit('SET_DEBT_TRANSACTIONS', transactions);
             }
-        }
+        },
+        async sendOTPDebt({ commit }, transId) {
+            let response = await axios.get('send-otp/debt/' + transId);
+            commit('NEW_TRANSACTION');
+            return response;
+        },
+        async confirmOTPDebt({ commit }, form) {
+            console.log(form)
+            await axios.post('validate-otp', {
+                action: 'debt',
+                otp: form.otp,
+                transId: form.transId
+            });
+            commit('NEW_TRANSACTION');
+        },
     }
 })

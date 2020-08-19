@@ -36,7 +36,25 @@
 				</md-content>
 			<md-dialog-actions>
 				<md-button class="md-info" @click="showDialog = false">Đóng</md-button>
-				<md-button class="md-info" @click="confirmPayDebt(formDialog); showDialog = false">Xác nhận</md-button>
+				<md-button class="md-info" @click="confirmPayDebt(formDialog); showDialog = false;">Xác nhận</md-button>
+			</md-dialog-actions>
+		</md-dialog>
+		<md-dialog :md-active.sync="showOTP">
+			<md-dialog-title>OTP</md-dialog-title>
+				<div style="display: flex; flex-direction: row;">
+              <v-otp-input
+                inputClasses="otp-input"
+                :numInputs="6"
+                separator="-"
+                :should-auto-focus="true"
+                :is-input-num="true"
+                :shouldAutoFocus="true"
+                @on-complete="handleOnComplete"
+              />
+            </div>
+			<md-dialog-actions>
+				<md-button class="md-info" @click="showOTP = false">Đóng</md-button>
+				<md-button class="md-info" @click="verifyOTP(); showDialog = false">Xác nhận</md-button>
 			</md-dialog-actions>
 		</md-dialog>
 	</div>
@@ -55,6 +73,11 @@ export default {
 	},
 	data: () => ({
 		showDialog: false,
+		showOTP: false,
+		formOTP: {
+			transId: null,
+			otp: null,
+		},
 		formDialog: {
 			debtId: '',
 			content: '',
@@ -71,6 +94,8 @@ export default {
 			getRemindedDebts: 'debt/getRemindedDebts',
 			payDebt: 'debt/payDebt',
 			notification: "addNotification",
+			sendOTPDebt: "transaction/sendOTPDebt",
+			confirmOTPDebt: "transaction/confirmOTPDebt",
 		}),
 		pay(debt) {
 			console.log(debt)
@@ -78,12 +103,19 @@ export default {
 		},
 		confirmPayDebt(form) {
 			console.log(form)
-			this.payDebt(form).then(() => {
-				this.notification({
-					type: "success",
-					message: "Chuyển khoản thành công",
-				});
-				this.getRemindedDebts();
+			this.payDebt(form).then((res) => {
+				console.log(res)
+				this.sendOTPDebt(res)
+					.then((res) => {
+						this.formOTP.transId = res.data.data.transId;
+						this.showOTP = true
+					})
+					.catch(() => {
+						this.notification({
+							type: "danger",
+							message: "Chuyển khoản không hợp lệ",
+						});
+					});
 				this.formDialog.typeFee = '';
 				this.formDialog.content = '';
 				this.formDialog.debtId = '';
@@ -93,6 +125,26 @@ export default {
 					message: "Thất bại",
 				});
 			})
+		},
+		verifyOTP() {
+			this.confirmOTPDebt(this.formOTP).then(() => {
+				this.notification({
+					type: "success",
+					message: "Trả nợ thành công",
+				});
+				this.getRemindedDebts();
+				this.showOTP = false;
+			}).catch(() => 
+			{
+				this.notification({
+					type: "danger",
+					message: "OTP không hợp lệ",
+				});
+			});
+		},
+		handleOnComplete(value) {
+			console.log(value)
+			this.formOTP.otp = parseInt(value);
 		}
 	},
 	created() {
