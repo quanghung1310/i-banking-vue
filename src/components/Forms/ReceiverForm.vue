@@ -57,7 +57,7 @@ export default {
   },
   computed: {
     validCardNumber() {
-     return this.form.cardNumber == "" ? "" : this.form.cardNumber.length == 16 ? "" : "md-invalid"
+     return this.form.cardNumber == "" ? "" : this.form.cardNumber.length === 16 ? "" : "md-invalid"
     },
     validRemindName() {
       return this.form.remindName == "" ? "" : this.form.remindName.length >=2 ? "" : "md-invalid"

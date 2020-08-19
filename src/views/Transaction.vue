@@ -60,7 +60,7 @@
                       <md-field :class="validCardNumber">
                         <label>Số tài khoản</label>
                         <md-input
-                          type="text"
+                          type="number"
                           v-model="form.cardNumber"
                           required
                           @change="getCardName"
@@ -164,7 +164,7 @@ export default {
     validCardNumber() {
       return this.form.cardNumber == "" || this.form.cardNumber == null
         ? ""
-        : this.form.cardNumber.length == 16
+        : this.form.cardNumber.length === 16
         ? ""
         : "md-invalid";
     },
