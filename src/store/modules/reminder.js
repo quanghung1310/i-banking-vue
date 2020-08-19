@@ -6,6 +6,7 @@ export default ({
     state: {
         reminders: [],
         account_of_reminder: [],
+        account_of_debt: [],
         partner_bank: [
             "ACB",
             "SCB",
@@ -34,6 +35,9 @@ export default ({
         getAccountOfReminder (state) {
             return state.account_of_reminder
         },
+        getAccountOfDebt (state) {
+            return state.account_of_debt
+        },
         getRemindersTypeDebt (state) {
             let arr = [];
             if (state.reminders) {
@@ -61,6 +65,9 @@ export default ({
         SET_ACCOUNT_OF_REMINDER (state, account_of_reminder) {
             state.account_of_reminder = account_of_reminder
         },
+        SET_ACCOUNT_OF_DEBT (state, account_of_debt) {
+            state.account_of_debt = account_of_debt
+        },
         UPDATE_REMINDERS () {}
     },
 
@@ -87,6 +94,10 @@ export default ({
         async getAccountReminderByCardNumber({ commit }, cardNumber) {
             let response = await axios.get('get-reminders/1/' + cardNumber);
             commit('SET_ACCOUNT_OF_REMINDER', response.data.data.account[0])
+        },
+        async getAccountDebtByCardNumber({ commit }, cardNumber) {
+            let response = await axios.get('get-reminders/2/' + cardNumber);
+            commit('SET_ACCOUNT_OF_DEBT', response.data.data.account[0])
         },
         async updateReminder({ commit }, form) {
             await axios.post('update-reminder', {

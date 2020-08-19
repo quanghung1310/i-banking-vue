@@ -71,7 +71,7 @@ export default {
   computed: {
     ...mapGetters({
       getRemindersTypeDebt: "reminder/getRemindersTypeDebt",
-      getAccountOfReminder: "reminder/getAccountOfReminder",
+      getAccountOfDebt: "reminder/getAccountOfDebt",
       accountInfo: "account/accountInfo",
     }),
     validCardNumber() {
@@ -85,16 +85,16 @@ export default {
   methods: {
     ...mapActions({
       getAllReminders: "reminder/getAllReminders",
-      getAccountReminderByCardNumber: "reminder/getAccountReminderByCardNumber",
+      getAccountDebtByCardNumber: "reminder/getAccountDebtByCardNumber",
       notification: "addNotification",
       addDebt: "debt/addDebt",
       getAccountInfo: "account/getAccountInfo",
     }),
     getAccount() {
       var res = this.selectedReminder.split("-");
-      this.getAccountReminderByCardNumber(res[1]).then(() => {
-        this.form.cardName = this.getAccountOfReminder.cardName;
-        this.form.cardNumber = this.getAccountOfReminder.cardNumber;
+      this.getAccountDebtByCardNumber(res[1]).then(() => {
+        this.form.cardName = this.getAccountOfDebt.cardName;
+        this.form.cardNumber = this.getAccountOfDebt.cardNumber;
       });
     },
     submit() {
