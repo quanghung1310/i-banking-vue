@@ -14,7 +14,7 @@
             >
               <label>Tìm kiếm...</label>
             </md-autocomplete>
-          </div> -->  
+          </div>-->
           <md-list>
             <md-list-item href="/">
               <i class="material-icons">dashboard</i>
@@ -22,9 +22,7 @@
             </md-list-item>
 
             <li class="md-list-item">
-              <a
-                class="md-list-item-router md-list-item-container md-button-clean dropdown"
-              >
+              <a class="md-list-item-router md-list-item-container md-button-clean dropdown">
                 <div class="md-list-item-content">
                   <drop-down>
                     <md-button
@@ -33,30 +31,31 @@
                       data-toggle="dropdown"
                     >
                       <md-icon>notifications</md-icon>
-                      <span class="notification"> {{ amountNotifications }}</span>
+                      <span class="notification">{{ amountNotifications }}</span>
                       <p class="hidden-lg hidden-md">Notifications</p>
                     </md-button>
-                    <ul class="dropdown-menu dropdown-menu-right dropdown-menu-size-50">
-                      <li 
-                        v-for="notify in allNotifications" 
-                        :key="notify.id"
-                        @click="seen(notify)"
-                      >
+                    <ul
+                      class="dropdown-menu dropdown-menu-right dropdown-menu-size-50"
+                      v-if="amountNotifications > 0"
+                    >
+                      <li v-for="notify in allNotifications" :key="notify.id" @click="seen(notify)">
                         <a>
                           <p>{{ notify.content }}</p>
                           <p>{{ notify.title }}</p>
                         </a>
                       </li>
                     </ul>
+                    <ul
+                      class="dropdown-menu dropdown-menu-right dropdown-menu-size-50"
+                      v-else
+                    >Không có thông báo nào</ul>
                   </drop-down>
                 </div>
               </a>
             </li>
 
             <li class="md-list-item">
-              <a
-                class="md-list-item-router md-list-item-container md-button-clean dropdown"
-              >
+              <a class="md-list-item-router md-list-item-container md-button-clean dropdown">
                 <div class="md-list-item-content">
                   <drop-down>
                     <md-button
@@ -67,8 +66,12 @@
                       <md-icon>person</md-icon>
                     </md-button>
                     <ul class="dropdown-menu dropdown-menu-right">
-                      <li><a href="/change-password">Đổi mật khẩu</a></li>
-                      <li><a href="#" @click.prevent="signOut">Đăng xuất</a></li>
+                      <li>
+                        <a href="/change-password">Đổi mật khẩu</a>
+                      </li>
+                      <li>
+                        <a href="#" @click.prevent="signOut">Đăng xuất</a>
+                      </li>
                     </ul>
                   </drop-down>
                 </div>
@@ -82,51 +85,51 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   data: () => ({
-		formDialog: {
-			debtId: '',
-			content: '',
-			typeFee: '',
-		},
+    formDialog: {
+      debtId: "",
+      content: "",
+      typeFee: "",
+    },
   }),
   computed: {
     ...mapGetters({
-        amountNotifications: 'notify/amountNotifications',
-        allNotifications: 'notify/allNotifications',
-    })
-	},
-	methods: {
-		...mapActions({
-      signOutAction: 'auth/signOut',
-      getNotifications: 'notify/getNotifications',
-      seenNotification: 'notify/seenNotification',
-		}),
+      amountNotifications: "notify/amountNotifications",
+      allNotifications: "notify/allNotifications",
+    }),
+  },
+  methods: {
+    ...mapActions({
+      signOutAction: "auth/signOut",
+      getNotifications: "notify/getNotifications",
+      seenNotification: "notify/seenNotification",
+    }),
 
-		signOut() {
-			this.signOutAction().then(() => {
-				this.$router.replace({
-					name: 'login'
-				})
-			})
-    },
-    
-    seen(notify) {
-      console.log(notify)
-      this.seenNotification(notify.id)
-      .catch(() => {
-        console.log('Error')
-      })
-      .finally(() => {
-        this.getNotifications();
+    signOut() {
+      this.signOutAction().then(() => {
+        this.$router.replace({
+          name: "login",
+        });
       });
-    }
+    },
+
+    seen(notify) {
+      console.log(notify);
+      this.seenNotification(notify.id)
+        .catch(() => {
+          console.log("Error");
+        })
+        .finally(() => {
+          this.getNotifications();
+        });
+    },
   },
   created() {
     this.getNotifications();
-  }
+  },
 };
 </script>
 
