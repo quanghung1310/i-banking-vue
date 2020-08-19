@@ -164,7 +164,7 @@ export default {
     validCardNumber() {
       return this.form.cardNumber == "" || this.form.cardNumber == null
         ? ""
-        : this.form.cardNumber.length === 16
+        : this.form.cardNumber.length === 16 || this.getAccountOfReminder.cardNumber == this.form.cardNumber
         ? ""
         : "md-invalid";
     },
