@@ -57,7 +57,7 @@ export default ({
         },
         NEW_REMINDER (state, reminder) {
             if (!state.reminders) {
-                state.reminders = reminder
+                state.reminders = [reminder]
             } else {
                 state.reminders.push(reminder)
             }

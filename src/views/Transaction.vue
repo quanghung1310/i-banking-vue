@@ -214,6 +214,11 @@ export default {
       this.getAccountReminderByCardNumber(res[1]).then(() => {
         this.form.cardName = this.getAccountOfReminder.cardName;
         this.form.cardNumber = this.getAccountOfReminder.cardNumber;
+      })
+      .finally(() => {
+        if (this.form.selectedType === 'Liên Ngân Hàng') {
+        this.form.cardName = res[0];
+      }
       });
     },
     sendForm() {
