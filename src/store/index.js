@@ -5,6 +5,7 @@ import account from './modules/account'
 import reminder from './modules/reminder'
 import transaction from './modules/transaction'
 import debt from './modules/debt'
+import notify from './modules/notify'
 
 Vue.use(Vuex)
 
@@ -42,5 +43,6 @@ export default new Vuex.Store({
     reminder,
     transaction,
     debt,
+    notify,
   }
 })

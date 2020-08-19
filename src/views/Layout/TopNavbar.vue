@@ -33,15 +33,20 @@
                       data-toggle="dropdown"
                     >
                       <md-icon>notifications</md-icon>
-                      <span class="notification">5</span>
+                      <span class="notification"> {{ amountNotifications }}</span>
                       <p class="hidden-lg hidden-md">Notifications</p>
                     </md-button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                      <li><a href="#">Mike John responded to your email</a></li>
-                      <li><a href="#">You have 5 new tasks</a></li>
-                      <li><a href="#">You're now friend with Andrew</a></li>
-                      <li><a href="#">Another Notification</a></li>
-                      <li><a href="#">Another One</a></li>
+                    <ul class="dropdown-menu dropdown-menu-right dropdown-menu-size-50">
+                      <li 
+                        v-for="notify in allNotifications" 
+                        :key="notify.id"
+                        @click="seen(notify)"
+                      >
+                        <a>
+                          <p>{{ notify.content }}</p>
+                          <p>{{ notify.title }}</p>
+                        </a>
+                      </li>
                     </ul>
                   </drop-down>
                 </div>
@@ -77,12 +82,27 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  data: () => ({
+		formDialog: {
+			debtId: '',
+			content: '',
+			typeFee: '',
+		},
+  }),
+  computed: {
+    ...mapGetters({
+        amountNotifications: 'notify/amountNotifications',
+        allNotifications: 'notify/allNotifications',
+    })
+	},
 	methods: {
 		...mapActions({
-			signOutAction: 'auth/signOut'
+      signOutAction: 'auth/signOut',
+      getNotifications: 'notify/getNotifications',
+      seenNotification: 'notify/seenNotification',
 		}),
 
 		signOut() {
@@ -91,8 +111,22 @@ export default {
 					name: 'login'
 				})
 			})
-		}
-	}
+    },
+    
+    seen(notify) {
+      console.log(notify)
+      this.seenNotification(notify.id)
+      .catch(() => {
+        console.log('Error')
+      })
+      .finally(() => {
+        this.getNotifications();
+      });
+    }
+  },
+  created() {
+    this.getNotifications();
+  }
 };
 </script>
 
