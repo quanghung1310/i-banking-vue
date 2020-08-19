@@ -9,6 +9,7 @@ import DebtRemind from '@/views/DebtRemind.vue'
 import History from '@/views/History.vue'
 import Login from '@/views/Login.vue'
 import ChangePassword from '@/views/ChangePassword.vue'
+import ForgotPassword from '@/views/ForgotPassword.vue'
 
 Vue.use(VueRouter)
 
@@ -65,7 +66,15 @@ Vue.use(VueRouter)
     meta: {
       guest: true
     }
-  }
+  },
+  {
+    path: "/forgot-password",
+    component: ForgotPassword,
+    name: "forgot-password",
+    meta: {
+      guest: true
+    }
+  },
 ]
 
 const router = new VueRouter({

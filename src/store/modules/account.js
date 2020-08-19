@@ -83,6 +83,10 @@ export default ({
             console.log(response)
             commit('SET_ACCOUNT_PGP', response.data.data.account[0])
             return response;
+        },
+        async forgotPassword({ commit }, username) {
+            await axios.get('forgot-password/' + username);
+            commit('NEW_PASSWORD');
         }
     }
 })

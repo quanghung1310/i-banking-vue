@@ -9,26 +9,13 @@
       <div class="form">
         <md-field>
           <label>Tên tài khoản</label>
-          <md-input v-model="form.username" autofocus></md-input>
+          <md-input v-model="username" autofocus></md-input>
         </md-field>
-
-        <md-field md-has-password>
-          <label>Mật khẩu</label>
-          <md-input v-model="form.password" type="password"></md-input>
-        </md-field>
-      </div>
-
-      <div class="form">
-        <VueRecaptcha sitekey="6Lejd78ZAAAAAExK1GyM1nDyeOQ0hhXyZ0gnaHB8" :loadRecaptchaScript="true" @verify="validate"/>
       </div>
 
       <div class="actions md-layout md-alignment-center-space-between">
-        <a href="/forgot-password">Quên mật khẩu</a>
-        <md-button class="md-raised md-primary" @click="submit" v-on:keyup.enter="submit">Đăng nhập</md-button>
-      </div>
-
-      <div class="loading-overlay" v-if="loading">
-        <md-progress-spinner md-mode="indeterminate" :md-stroke="2"></md-progress-spinner>
+        <md-button class="md-raised md-primary" @click="submit" v-on:keyup.enter="submit">Gửi Mail</md-button>
+        <md-button class="md-raised md-primary" href="/login">Đăng nhập</md-button>
       </div>
 
     </md-content>
@@ -38,57 +25,39 @@
 
 <script>
 import { mapActions } from 'vuex'
-import VueRecaptcha from 'vue-recaptcha'
 
 export default {
-  name: 'login',
+  name: 'forgot-password',
   components: {
-    VueRecaptcha,
   },
   data () {
     return {
-      loading: false,
-      form: {
         username: '',
-        password: '',
-      },
-      isVerify: false,
     }
   },
   methods: {
     ...mapActions({
-      login: 'auth/login',
       notification: 'addNotification',
+      forgotPassword: 'account/forgotPassword',
     }),
 
     submit() {
-      if (this.isVerify == false) {
+      this.forgotPassword(this.username).then(() => {
         this.notification({
-          type: 'danger',
-          message: 'Captcha không chính xác.'
+            type: 'success',
+            message: 'Gửi mail thành công.'
         });
-        return
-      }
-      this.loading = true;
-      setTimeout(() => {
-        this.loading = false;
-      }, 3000);
-      this.login(this.form).then(() => {
-        this.$router.push({
-          name: 'Dashboard'
-        })
       })
         .catch(() => {
-          this.notification({
-            type: 'danger',
-            message: 'Tài khoản/mật khấu không chính xác.'
-          });
-      });
+            this.notification({
+                type: 'danger',
+                message: 'Tài khoản không chính xác.'
+            });
+        })
+        .finally(() => {
+            this.username = '';
+        });
     },
-
-    validate() {
-      this.isVerify = true
-    }
   }
 }
 </script>
