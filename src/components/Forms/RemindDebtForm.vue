@@ -26,18 +26,21 @@
             <md-field :class="validCardNumber">
               <label>Số tài khoản</label>
               <md-input v-model="form.cardNumber" required type="number" @change="getCardName"></md-input>
+              <span class="md-error">Số tài khoản có 16 số</span>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field>
+            <md-field :class="validAmount">
               <label>Số tiền</label>
               <md-input v-model="form.amount" required type="number"></md-input>
+              <span class="md-error">Tối thiểu 1000đ, tối đa 20.000.000đ</span>
             </md-field>
           </div>
           <div class="md-layout-item md-size-100">
-            <md-field maxlength="5">
+            <md-field maxlength="5" :class="validContent">
               <label>Nội dung</label>
               <md-textarea v-model="form.content" required></md-textarea>
+              <span class="md-error">Nội dung tối thiểu 2 ký tự</span>
             </md-field>
           </div>
           <div class="md-layout-item md-size-100 text-right">
@@ -77,7 +80,22 @@ export default {
     validCardNumber() {
       return this.form.cardNumber == "" || this.form.cardNumber == null
         ? ""
-        : this.form.cardNumber.length == 16
+        : this.form.cardNumber.length == 16 ||
+          this.form.cardNumber == this.getAccountOfDebt.cardNumber
+        ? ""
+        : "md-invalid";
+    },
+    validContent() {
+      return this.form.content == "" || this.form.content == null
+        ? ""
+        : this.form.content.length >= 2
+        ? ""
+        : "md-invalid";
+    },
+    validAmount() {
+      return this.form.amount == "" || this.form.amount == null
+        ? ""
+        : this.form.amount >= 1000 && this.form.amount <= 20000000
         ? ""
         : "md-invalid";
     },
