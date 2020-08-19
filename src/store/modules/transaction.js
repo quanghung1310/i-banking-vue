@@ -12,8 +12,8 @@ export default ({
             "Liên Ngân Hàng"
         ],
         partner_bank: [
-            "DH Bank",
-            "HHL Bank"
+            "PGP_Bank",
+            "RSA_Bank"
         ],
     },
 
@@ -60,13 +60,13 @@ export default ({
 
             let merchantId;
             switch (form.selectedBank) {
-                case 'HHL Bank':
-                    merchantId = 1;
+                case 'PGP_Bank':
+                    merchantId = 2;
                     break;
-                case 'DH Bank':
+                case 'RSA_Bank':
                     merchantId = 3;
                     break;
-                default: merchantId = 2;
+                default: merchantId = 1;
             }
 
             let response = await axios.post('transaction', {

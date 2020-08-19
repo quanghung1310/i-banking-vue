@@ -117,7 +117,9 @@
 
           <md-step id="third" md-label="Xác nhận" :md-done.sync="third">
             <p>Giao dịch thành công</p>
-            <md-button class="md-raised md-primary" @click="end()">Xác nhận</md-button>
+            <p>Thêm tài khoản vào danh sách gợi nhớ?</p>
+            <md-button class="md-raised md-primary" @click="end()">Không</md-button>
+            <md-button class="md-raised md-primary" @click="addToListReminder()">Có</md-button>
           </md-step>
         </md-steppers>
       </div>
@@ -159,6 +161,7 @@ export default {
       getRemindersTypeSend: "reminder/getRemindersTypeSend",
       getAccountOfReminder: "reminder/getAccountOfReminder",
       accountInfo: "account/accountInfo",
+      accountPgp: "account/accountPgp",
     }),
 
     validCardNumber() {
@@ -194,6 +197,8 @@ export default {
       notification: "addNotification",
       confirmOTP: "transaction/confirmOTP",
       getAccountInfo: "account/getAccountInfo",
+      addReminder: "reminder/addReminder",
+      getAccountPGP: "account/getAccountPGP",
     }),
     setDone(id, index) {
       this[id] = true;
@@ -216,7 +221,6 @@ export default {
         .then((res) => {
           this.sendOTP(res)
             .then((res) => {
-              console.log(res.data.data.transId);
               this.formOTP.transId = res.data.data.transId;
               this.setDone("first", "second");
             })
@@ -249,12 +253,22 @@ export default {
     end() {
       this.$router.go();
     },
+    addToListReminder() {
+      console.log(this.form)
+      var formReminder = {
+				selectedTypes: 'Chuyển Tiền',
+				remindName: this.form.cardName,
+				cardNumber: this.form.cardNumber,
+      };
+      this.addReminder(formReminder);
+      this.$router.go();
+    },
     handleOnComplete(value) {
       console.log("OTP completed: ", value);
       this.formOTP.otp = parseInt(value);
     },
     getCardName() {
-      if (this.form.cardNumber !== "") {
+      if (this.form.cardNumber !== "" && this.form.selectedType === 'Nội bộ') {
         this.getAccountInfo(this.form.cardNumber)
           .then(() => {
             this.form.cardName = this.accountInfo.cardName;
@@ -262,6 +276,14 @@ export default {
           .catch(() => {
             this.form.cardName = "";
           });
+      } else if (this.form.cardNumber !== "" && this.form.selectedType === 'Liên Ngân Hàng') {
+        this.getAccountPGP(this.form.cardNumber)
+        .then(() => {
+          this.form.cardName = this.accountPgp.cardName;
+        })
+        .catch(() => {
+          this.form.cardName = "";
+        })
       } else {
         this.form.cardName = "";
       }

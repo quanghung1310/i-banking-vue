@@ -82,7 +82,7 @@ export default {
 		},
 		update(form) {
 			this.updateReminder(form).then(() => {
-				this.$router.go()
+				this.getAllReminders();
 			}).catch(() => {
 				console.log("Faild")
 			})
@@ -95,7 +95,7 @@ export default {
 			};
 
 			this.removeReminder(form).then(() => {
-				this.$router.go()
+				this.getAllReminders();
 			}).catch(() => {
 				console.log("Faild")
 			})

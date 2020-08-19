@@ -13,6 +13,9 @@ export default ({
         account_info: [
 
         ],
+        account_pgp: [
+
+        ],
     },
 
     getters: {
@@ -26,6 +29,10 @@ export default ({
 
         accountInfo (state) {
             return state.account_info
+        },
+
+        accountPgp (state) {
+            return state.account_pgp
         }
     },
 
@@ -42,6 +49,10 @@ export default ({
 
         SET_ACCOUNT_INFO (state, account) {
             state.account_info = account
+        },
+
+        SET_ACCOUNT_PGP (state, account) {
+            state.account_pgp = account
         }
     },
 
@@ -65,6 +76,12 @@ export default ({
         async getAccountInfo({ commit }, cardNumber) {
             let response = await axios.get('get-account-info/' + cardNumber + '/1');
             commit('SET_ACCOUNT_INFO', response.data.data.account[0])
+            return response;
+        },
+        async getAccountPGP({ commit }, cardNumber) {
+            let response = await axios.get('get-account-info/' + cardNumber + '/2');
+            console.log(response)
+            commit('SET_ACCOUNT_PGP', response.data.data.account[0])
             return response;
         }
     }
