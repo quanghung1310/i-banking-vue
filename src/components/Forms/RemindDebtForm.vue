@@ -26,7 +26,6 @@
             <md-field :class="validCardNumber">
               <label>Số tài khoản</label>
               <md-input v-model="form.cardNumber" required type="number" @change="getCardName"></md-input>
-              <span class="md-error">Số tài khoản có 16 số</span>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">

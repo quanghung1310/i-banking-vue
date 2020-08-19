@@ -63,7 +63,7 @@ export default ({
             return response;
         },
         async getAccountInfo({ commit }, cardNumber) {
-            let response = await axios.get('get-account-info/' + cardNumber + '/2');
+            let response = await axios.get('get-account-info/' + cardNumber + '/1');
             commit('SET_ACCOUNT_INFO', response.data.data.account[0])
             return response;
         }

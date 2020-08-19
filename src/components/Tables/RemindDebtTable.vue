@@ -83,6 +83,10 @@ export default {
 					type: "success",
 					message: "Chuyển khoản thành công",
 				});
+				this.getRemindedDebts();
+				this.formDialog.typeFee = '';
+				this.formDialog.content = '';
+				this.formDialog.debtId = '';
 			}).catch(() => {
 				this.notification({
 					type: "danger",

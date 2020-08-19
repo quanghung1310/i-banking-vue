@@ -204,9 +204,6 @@ export default {
         this.active = index;
       }
     },
-    setError() {
-      this.secondStepError = "This is an error!";
-    },
     getAccount() {
       var res = this.selectedReminder.split("-");
       this.getAccountReminderByCardNumber(res[1]).then(() => {

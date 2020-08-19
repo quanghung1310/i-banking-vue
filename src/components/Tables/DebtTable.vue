@@ -26,7 +26,7 @@
 		<md-dialog-prompt
 		:md-active.sync="showDialog"
 		v-model="formDialog.content"
-		md-title="Nội dung"
+		md-title="Xóa"
 		md-input-maxlength="30"
 		md-input-placeholder="Nội dung..."
 		md-confirm-text="Xác nhân" 
@@ -67,7 +67,6 @@ export default {
 		}),
 
 		remove(debt) {
-			console.log(debt);
 			this.formDialog.id = debt.id;
 		},
 
