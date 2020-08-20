@@ -65,7 +65,7 @@
                           required
                           @change="getCardName"
                         ></md-input>
-                        <span class="md-error">Số tài khoản có 16 số</span>
+                        <span class="md-error">Số tài khoản không hợp lệ</span>
                       </md-field>
                     </div>
                     <div class="md-layout-item md-small-size-100 md-size-33">
@@ -167,7 +167,7 @@ export default {
     validCardNumber() {
       return this.form.cardNumber == "" || this.form.cardNumber == null
         ? ""
-        : this.form.cardNumber.length === 16 || this.getAccountOfReminder.cardNumber == this.form.cardNumber
+        : this.form.cardNumber.length === 16 || this.getAccountOfReminder.cardNumber == this.form.cardNumber || this.form.cardNumber.length === 8
         ? ""
         : "md-invalid";
     },

@@ -74,7 +74,8 @@ export default ({
                 typeFee: typeFee,
                 content: form.content,
                 amount: form.amount,
-                merchantId: merchantId
+                merchantId: merchantId,
+                receiverName: form.cardName
             });
 
             commit('NEW_TRANSACTION')
